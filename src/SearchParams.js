@@ -34,18 +34,20 @@ const SearchParams = () => {
           requestPets();
         }}
       >
-        <label htmlFor="location">
+        <label htmlFor="location" className="search-label">
           Location
           <input
+            className="search-control"
             id="location"
             value={location}
             onChange={(e) => setLocation(e.target.value)}
             placeholder="Location"
           />
         </label>
-        <label htmlFor="animal">
+        <label htmlFor="animal" className="search-label">
           Animal
           <select
+            className="search-control"
             id="animal"
             value={animal}
             onChange={(e) => setAnimal(e.target.value)}
@@ -59,9 +61,11 @@ const SearchParams = () => {
             ))}
           </select>
         </label>
-        <label htmlFor="breed">
+        <label htmlFor="breed" className="search-label">
           Breed
           <select
+            className="search-control disabled:opacity-50"
+            disabled={!breeds.length}
             id="breed"
             value={breed}
             onChange={(e) => setBreed(e.target.value)}
@@ -75,9 +79,10 @@ const SearchParams = () => {
             ))}
           </select>
         </label>
-        <label htmlFor="theme">
+        <label htmlFor="theme" className="search-label">
           Theme
           <select
+            className="search-control"
             value={theme}
             onChange={(e) => setTheme(e.target.value)}
             onBlur={(e) => setTheme(e.target.value)}
@@ -88,7 +93,12 @@ const SearchParams = () => {
             <option value="mediumorchid">Medium Orchid</option>
           </select>
         </label>
-        <button style={{ backgroundColor: theme }}>Submit</button>
+        <button
+          className="rounded px-6 py-2 text-white hover:opacity-50 border-none"
+          style={{ backgroundColor: theme }}
+        >
+          Submit
+        </button>
       </form>
       <Results pets={pets} />
     </div>

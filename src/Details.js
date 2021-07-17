@@ -53,7 +53,9 @@ class Details extends Component {
           {showModal ? (
             <Modal>
               <div>
-                <h1>Would you like to adopt {name}</h1>
+                <h1 className="text-3xl mb-3 font-bold">
+                  Would you like to adopt {name}
+                </h1>
                 <div className="buttons">
                   <button onClick={this.adopt}>Yes</button>
                   <button onClick={this.toggleModal}>No</button>

@@ -31,17 +31,16 @@ class Details extends Component {
     return this.state.loading ? (
       <h2>Loading</h2>
     ) : (
-      <div className="w-9/12 mx-auto mt-0 mb-2 p-3 rounded-2xl bg-red-50 shadow-xl">
+      <div className="details">
         <Carousel images={images} />
-        <div className="text-center">
-          <h1 className="my-3 font-bold text-7xl">{name}</h1>
-          <h2 className="my-3 font-bold text-xl">
+        <div>
+          <h1>{name}</h1>
+          <h2>
             {animal} - {breed} - {city}, {state}
           </h2>
           <ThemeContext.Consumer>
             {([theme]) => (
               <button
-                className="my-3 w-36 rounded py-1 px-5 text-white border-2 border-black"
                 onClick={this.toggleModal}
                 style={{ backgroundColor: theme }}
               >

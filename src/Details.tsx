@@ -1,29 +1,33 @@
-import { Component } from "react";
-import { withRouter } from "react-router-dom";
+import { Component, FunctionComponent } from "react";
+import { withRouter, RouteComponentProps } from "react-router-dom";
 import Carousel from "./Carousel";
 import ErrorBoundary from "./ErrorBoundary";
 import ThemeContext from "./ThemeContext";
 import Modal from "./Modal";
+import { PetAPIResponse, Animal } from "./APIResponseTypes";
 
-class Details extends Component {
-  state = { loading: true, showModal: false };
+class Details extends Component<RouteComponentProps<{ id: string }>> {
+  state = {
+    loading: true,
+    showModal: false,
+    animal: "" as Animal,
+    breed: "",
+    city: "",
+    state: "",
+    description: "",
+    name: "",
+    images: [] as string[],
+  };
 
   async componentDidMount() {
     const res = await fetch(
       `https://pets-v2.dev-apis.com/pets?id=${this.props.match.params.id}`
     );
-    const json = await res.json();
-    this.setState(
-      Object.assign(
-        {
-          loading: false,
-        },
-        json.pets[0]
-      )
-    );
+    const json = (await res.json()) as PetAPIResponse;
+    this.setState(Object.assign({ loading: false }, json.pets[0]));
   }
   toggleModal = () => this.setState({ showModal: !this.state.showModal });
-  adopt = () => (window.location = "https://bit.ly/pet-adopt");
+  adopt = () => (window.location.href = "https://bit.ly/pet-adopt");
   render() {
     const { animal, breed, city, state, description, name, images, showModal } =
       this.state;
@@ -69,10 +73,13 @@ class Details extends Component {
 
 const DetailsWithRouter = withRouter(Details);
 
-export default function DetailsWithErrorBoundary() {
-  return (
-    <ErrorBoundary>
-      <DetailsWithRouter />
-    </ErrorBoundary>
-  );
-}
+const DetailsWithErrorBoundary: FunctionComponent =
+  function DetailsWithErrorBoundary() {
+    return (
+      <ErrorBoundary>
+        <DetailsWithRouter />
+      </ErrorBoundary>
+    );
+  };
+
+export default DetailsWithErrorBoundary;
